@@ -1,15 +1,11 @@
-'use client'; // <-- Wajib untuk menggunakan hooks seperti useState
+'use client';
 
 // Impor 'type' untuk event React
 import { useState } from 'react';
 import type { FormEvent, ChangeEvent } from 'react'; 
-// Hapus impor useRouter karena menyebabkan error kompilasi di lingkungan preview
-// import { useRouter } from 'next/navigation';
 
 // --- LANGKAH 1: Definisikan "bentuk" atau "tipe" data ---
 
-// Tipe untuk state errors. 
-// Tanda tanya (?) berarti propertinya opsional (boleh ada atau tidak)
 interface FormErrors {
   nama?: string;
   email?: string;
@@ -22,17 +18,13 @@ export default function FormRegistrasi() {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
 
-  // Beri tahu TS bahwa 'errors' adalah objek yang mengikuti "bentuk" FormErrors
 const [errors, setErrors] = useState<FormErrors>({});
 
-  // Hapus const router = useRouter(); karena tidak bisa di-resolve
-  // const router = useRouter();
 
   // --- LANGKAH 3: Beri tahu fungsi tipe data parameternya ---
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
 
-    // 'newErrors' akan otomatis dimengerti sebagai tipe 'FormErrors'
     let newErrors: FormErrors = {};
 
     // --- Logika Validasi ---
@@ -66,20 +58,12 @@ const [errors, setErrors] = useState<FormErrors>({});
     if (Object.keys(newErrors).length === 0) {
       console.log('Data valid:', { nama, email, password });
       
-      // Ganti router.push() dengan navigasi browser standar (window.location.href)
       // Ini akan memperbaiki error kompilasi dan tetap mengirim data ke halaman hasil
       window.location.href = 
         `/hasil?nama=${encodeURIComponent(nama)}&email=${encodeURIComponent(
           email
         )}&password=${encodeURIComponent(password)}`;
       
-      /* Kode asli yang dihapus:
-      router.push(
-        `/hasil?nama=${encodeURIComponent(nama)}&email=${encodeURIComponent(
-          email
-        )}&password=${encodeURIComponent(password)}`
-      );
-      */
     }
   };
 
@@ -104,7 +88,6 @@ const [errors, setErrors] = useState<FormErrors>({});
             id="nama"
             placeholder="Masukkan nama lengkap"
             value={nama}
-            // Beri tipe 'e' sebagai ChangeEvent pada HTMLInputElement
             onChange={(e: ChangeEvent<HTMLInputElement>) => setNama(e.target.value)}
             className={`w-full px-3 py-2 border rounded-lg ${
               errors.nama ? 'border-red-500' : 'border-gray-300'

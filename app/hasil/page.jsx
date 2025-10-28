@@ -78,14 +78,14 @@ function HasilContent() {
               Edit Data
             </button>
           <Link 
-            href="./page.tsx" 
+            href="/" 
             className="block w-full text-center bg-gray-200 text-gray-800 py-2 rounded-lg font-semibold hover:bg-gray-300 transition duration-300 mt-2"
           >
             Kembali ke Form Awal
           </Link>
           </div>
         ) : (
-          // --- TAMPILAN EDIT (No. 5) ---
+          // --- TAMPILAN EDIT  ---
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -150,7 +150,6 @@ function HasilContent() {
   );
 }
 
-// Bungkus komponen dengan Suspense untuk useSearchParams
 export default function HasilPage() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
